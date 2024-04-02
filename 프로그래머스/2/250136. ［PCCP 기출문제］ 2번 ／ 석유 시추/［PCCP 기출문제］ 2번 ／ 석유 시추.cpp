@@ -7,7 +7,6 @@ using namespace std;
 #define MAX_LAND 510
 typedef pair<int,int> pp;
 
-
 bool visited[MAX_LAND][MAX_LAND];
 int oils[MAX_LAND];
 int N, M, miny, maxy;
