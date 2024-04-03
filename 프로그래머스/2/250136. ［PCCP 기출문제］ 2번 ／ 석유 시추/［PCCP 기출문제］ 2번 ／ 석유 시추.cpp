@@ -1,6 +1,5 @@
 #include <vector>
 #include <algorithm>
-#include <queue>
 
 using namespace std;
 
@@ -10,36 +9,28 @@ typedef pair<int,int> pp;
 bool visited[MAX_LAND][MAX_LAND];
 int oils[MAX_LAND];
 int N, M, miny, maxy;
-queue <pp> Q;
 
 // move to left, right, up, down
 int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 
-int bfs(vector<vector<int>>& land, int x, int y) {
-    int total = 0;
-
-    Q.push({x, y});
-    visited[x][y] = true;
+int dfs(vector<vector<int>>&land, int x, int y) {
+    int totalOilInField = 1;
     
-    while (!Q.empty()) {
-        x = Q.front().first, y = Q.front().second;
-        Q.pop();
-        
-       // 해당 구역이 걸쳐있는 가로줄 구함
-        miny = min(y, miny), maxy = max(y, maxy);
-        
-        // 석유 양 저장
-        total++;
-        
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i], ny = y + dy[i];
-            if (nx < 0 || N <= nx || ny < 0 || M <= ny || !land[nx][ny] || visited[nx][ny]) continue;
+     // 해당 지점 방문 표시
+    visited[x][y] = true;
 
-            visited[nx][ny] = true;
-            Q.push({nx, ny});
-        }
+    // 해당 구역이 걸쳐있는 가로줄 구함
+    miny = min(y, miny), maxy = max(y, maxy);
+    
+    for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i], ny = y + dy[i];
+        if (nx < 0 || N <= nx || ny < 0 || M <= ny || !land[nx][ny] || visited[nx][ny]) continue;
+        
+        // 현재 구역의 석유 양 계산 
+        totalOilInField += dfs(land, nx, ny);
     }
-    return total;
+
+    return totalOilInField;
 }
 
 int solution(vector<vector<int>> land) {
@@ -54,7 +45,7 @@ int solution(vector<vector<int>> land) {
             miny = MAX_LAND, maxy = -1;
             
             // 해당 구역의 석유 양 추출 및 해당 구역의 가로 범위 저장
-            int amount = bfs(land, i, j);       
+            int amount = dfs(land, i, j);       
             oils[miny] += amount, oils[maxy + 1] -= amount;
         }
     }
