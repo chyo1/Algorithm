@@ -31,6 +31,7 @@ public:
             foods.pop_front();
         }
         
+        // 남아있는 학생 수 반환
         return humans.size();
     }
 };
