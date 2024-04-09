@@ -1,25 +1,17 @@
 class Solution {
 public:
     int timeRequiredToBuy(vector<int>& tickets, int k) {
-        deque <pair<int,int>> q;
+        int val = tickets[k];
         int cnt = 0;
-
-        for(int i = 0; i < tickets.size(); i++) {
-            q.push_back({tickets[i], i});
+        
+        for (int i = 0; i <= k; i++) {
+            cnt += min(val, tickets[i]);   
         }
-
-        while (!q.empty()) {
-            int val = q.front().first, num = q.front().second;
-
-            q.pop_front();
-
-            if (val == 1 && num == k)
-                return cnt + 1;
-            if (val == 0)
-                continue;
-            q.push_back({val - 1, num});
-            cnt++;
+        
+        val--;
+        for (int i = k + 1, size = tickets.size(); i < size; i++) {
+          cnt += min(val, tickets[i]);   
         }
-        return cnt + 1;
+        return cnt;
     }
 };
