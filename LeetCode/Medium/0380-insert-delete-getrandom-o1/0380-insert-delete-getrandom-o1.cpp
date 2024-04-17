@@ -28,7 +28,7 @@ public:
             return false;    
         
         v[iter->second] = v.back();
-        m[v.back()] = iter->second;
+        m[v[iter->second]] = iter->second;
         v.pop_back();
         m.erase(val);
         
