@@ -30,7 +30,6 @@ public:
             while (q.front().first != usedTime[q.front().second])
                 q.pop();
             um.erase(q.front().second);
-            usedTime.erase(key);
             q.pop();
         }
         um[key] = value;
