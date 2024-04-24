@@ -10,17 +10,7 @@ public:
             string origin = strs[i];
             sort(strs[i].begin(), strs[i].end());
 
-            // 정렬 후 해당 값이 존재하지 않는다면 새로 생성
-            if (um.find(strs[i]) == um.end()) {
-                vector<string> v;
-                
-                v.push_back(origin);
-                um[strs[i]] = v;
-            }
-            
-            // 존재한다면 value 값 추가
-            else
-                um[strs[i]].emplace_back(origin);
+            um[strs[i]].push_back(origin);
         }
         
         for (auto iter = um.begin(); iter != um.end(); iter++) {
