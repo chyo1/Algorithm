@@ -14,7 +14,7 @@ public:
                 }
             }
 
-            dp[dif] = max(dp[dif], maxLen + 1);
+            dp[dif] = maxLen + 1;
             ans = max(ans, dp[dif]);
         }
 
