@@ -1,8 +1,4 @@
 class Solution {
-
-private:
-    typedef pair<int, int> pp;
-
 public:
     int minimumTotal(vector<vector<int>>& cal) {
 
