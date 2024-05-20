@@ -10,26 +10,17 @@
  * };
  */
 class Solution {
-private:
-    vector <int> nodes;
 public:
-    bool isValidBST(TreeNode* root) {
-        inOrder(root);
-    
-        int size = nodes.size();
-        for (int i = 0; i < size - 1; i++) {
-            if (nodes[i] >= nodes[i + 1])
-                return false;
-        }
-        return true;
-    }
 
-    void inOrder(TreeNode* node) {
-        if (node->left)
-            inOrder(node->left);
-        nodes.push_back(node->val);
-        if (node->right)
-            inOrder(node->right);
-        return;
+    bool isPossible(TreeNode* node, long long leftVal, long long rightVal) {
+        if (node == NULL)
+            return true;
+        if (leftVal < node->val && node->val < rightVal) 
+            return isPossible(node->left, leftVal, node->val) && isPossible(node->right, node->val, rightVal);
+        return false;
+    }
+    bool isValidBST(TreeNode* root) {
+        long long minVal = -1'000'000'000'000, maxVal = 1'000'000'000'000;
+        return isPossible(root, minVal, maxVal);
     }
 };
