@@ -12,15 +12,16 @@
 class Solution {
 public:
 
-    bool isPossible(TreeNode* node, long long leftVal, long long rightVal) {
+    bool isPossible(long long leftVal, TreeNode* node, long long rightVal) {
         if (node == NULL)
             return true;
         if (leftVal < node->val && node->val < rightVal) 
-            return isPossible(node->left, leftVal, node->val) && isPossible(node->right, node->val, rightVal);
+            return isPossible(leftVal, node->left, node->val) && isPossible(node->val, node->right, rightVal);
         return false;
     }
+
     bool isValidBST(TreeNode* root) {
         long long minVal = -1'000'000'000'000, maxVal = 1'000'000'000'000;
-        return isPossible(root, minVal, maxVal);
+        return isPossible(minVal, root, maxVal);
     }
 };
