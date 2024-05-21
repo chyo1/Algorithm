@@ -1,51 +1,57 @@
 class Solution {
 private:
     #define MAX_SIZE 410
+    typedef pair<int, int> pair_int;
 public:
     int snakesAndLadders(vector<vector<int>>& board) {
-        int len = board.size();
-        int dst = len * len;
-        queue <pair<int, int>> q;
+        int size = board.size();
+        int dst = size * size;
+        queue <pair_int> q;
  
-        // indexing
-        int r, c;
-        r = len - 1, c = 0;
-        int idx = 0;
-        pair<int, int> moveDir = {0, 1};
+        // 배열 인덱싱
+        int r, c, idx = 0;
+        r = size - 1, c = 0;
+        pair_int moveDir = {0, 1};
+
         while (idx++ != dst) {
-            if (board[r][c] != -1) {
+
+            // 사다리 or 뱀 -> 출발 & 도착 지점 저장
+            if (board[r][c] != -1)
                 q.push({idx, board[r][c]});
-                // printf("%d ", idx);
-            }
+            
             c += moveDir.second; 
-            if (c == len || c == -1) {
+            if (c == size || c == -1) {
                 moveDir.second *= -1;
                 r -= 1;
                 c += moveDir.second;
             }
         }
 
+
+        // 모든 인덱스의 도착 지점을 자기 자신으로 설정
         int point[MAX_SIZE];
         for (int i = 0; i < MAX_SIZE; i++)
             point[i] = i;
 
-        // check ladder or snake and change the point's definition
+        // 큐를 순회하며 출발 != 도착인 지점 처리
         while (q.size()) {
-            pair<int, int> moveTo = q.front();
+            pair_int moveTo = q.front();
             q.pop();
             point[moveTo.first] = moveTo.second;
         }
-        // for (int i = 0; i <= len * len; i++)
-        //     printf("idx: %d, dst: %d\n", i, point[i]);
 
 
+        // 방문 초기화
         int visited[MAX_SIZE];
         fill(visited, visited + MAX_SIZE, MAX_SIZE);
 
-        idx = 1;
         queue <int> log;
-        log.push(1); // start point
+
+        // 시작지점
+        log.push(1);
         visited[1] = 0;
+
+        // BFS
         while (log.size()) {
             int now = log.front();
             log.pop();
@@ -54,19 +60,16 @@ public:
 
             for (int i = 1; i <= 6; i++) {
                 int next = now + i;
-                // printf("next: %d, visited[next] : %d, nextCnt: %d\n", next, visited[next], nextCnt);
+
+                // 현재 도달 회수 < 저장된 도달 회수인 경우에 작은 값으로 갱신
                 if (next <= dst && visited[point[next]] > nextCnt) {
                     visited[point[next]] = nextCnt;
                     log.push(point[next]);
-                    // if (point[next] != next)
-                    //     printf("next : %d, step : %d\n", next, nextCnt);
-                    // printf("point[next] : %d, step : %d\n", point[next], nextCnt);
                 }
             }
         }
-        // for (int i = 0; i <= len * len; i++)
-        //     printf("idx: %d, dst: %d\n", i, visited[i]);
-        
+
+        // 도착 불가 시 -1 반환
         return visited[dst] != MAX_SIZE ? visited[dst] : -1;
     }
 };
