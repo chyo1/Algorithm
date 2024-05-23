@@ -1,6 +1,5 @@
 class Solution {
 public:
-
     vector<string> ans;
     string nums[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
@@ -18,7 +17,7 @@ public:
             ans.push_back(s);
             return;
         }
-        
+
         int idx = digits[sLen] - '0';
         for (int j = 0; j < nums[idx].size(); j++) {
             makeLetterCombinations(digits, s + nums[idx][j], len);
