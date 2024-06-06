@@ -11,8 +11,8 @@ public:
         }
         
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= i; j++) {
-                dp[i] = min(dp[i], dp[i - j] + dp[j]);
+            for (int j = 1; j * j <= i / 2; j++) {
+                dp[i] = min(dp[i], dp[i - j * j] + dp[j * j]);
             }
         }
         return dp[n];
@@ -23,4 +23,5 @@ dp[n] = dp[n-i] + dp[i];
 dp[2] = dp[1] + dp[1];
 dp[3] = dp[2] + dp[1];
 dp[5] = dp[4] + dp[1] / dp[3] + dp[2]
+dp[6] = dp[5] + dp[1] / dp[4] + dp[2] / dp[3] + dp[3]
 */
