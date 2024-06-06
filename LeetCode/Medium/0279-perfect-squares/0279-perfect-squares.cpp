@@ -11,6 +11,7 @@ public:
         }
         
         for (int i = 1; i <= n; i++) {
+            if (dp[i] != 10001) continue;
             for (int j = 1; j * j <= i / 2; j++) {
                 dp[i] = min(dp[i], dp[i - j * j] + dp[j * j]);
             }
