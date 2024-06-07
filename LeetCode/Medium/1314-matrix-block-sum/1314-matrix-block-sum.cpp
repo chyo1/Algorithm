@@ -6,17 +6,17 @@ public:
         for (int i = 0; i < m; i++) {
             vector<int> col;
             for (int j = 0; j < n; j++) {
-                col.push_back(getAnswer(i, j, k, m, n, mat));
+                col.push_back(getAnswer(max(0, i - k), min(i + k, m - 1), max(j - k, 0), min(j + k, n - 1), mat));
             }
             ans.push_back(col);
         }
         return ans;
     }
 
-    int getAnswer(int i, int j, int k, int m, int n, vector<vector<int>>& mat) {
+    int getAnswer(int r1, int r2, int c1, int c2, vector<vector<int>>& mat) {
         int sum = 0;
-        for (int r = max(i - k, 0); r <= min(i + k, m - 1); r++) {
-            for (int c = max(j - k, 0); c <= min(j + k, n - 1); c++) {
+        for (int r = r1; r <= r2; r++) {
+            for (int c = c1; c <= c2; c++) {
                 sum += mat[r][c];
             }
         }
