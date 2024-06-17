@@ -1,30 +1,19 @@
 class Solution {
 public:
     int countSquares(vector<vector<int>>& matrix) {
-        int sum = 0;
         int row = matrix.size(), col = matrix[0].size();
-        int maxSubmatrixSize = min(row, col);
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                for (int k = 1; k <= maxSubmatrixSize; k++) {
-                    if (!matrix[i][j] || row < i + k || col < j + k || !checkSize(i, j, k, matrix))
-                        break;
-                    // printf("i: %d, j: %d, size: %d\n", i, j, k);
-                    sum++;
-                }
-            }
-        }
-        return sum;
-    }
+        vector<vector<int>>& dp = matrix;
+        int cnt = 0;
 
-    bool checkSize(int r, int c, int size, vector<vector<int>>& matrix) {
-        int row = r + size, col = c + size;
-        for (int i = r; i < row; i++) {
-            for (int j = c; j < col; j++) {
-                if (matrix[i][j] == 0)
-                    return false;
+        for (int i = 0; i < row; i++) cnt += dp[i][0];
+        for (int j = 1; j < col; j++) cnt += dp[0][j];
+        for (int i = 1; i < row; i++) {
+            for (int j = 1; j < col; j++) {
+                if (!dp[i][j]) continue;
+                dp[i][j] = min(dp[i -1][j - 1], min(dp[i - 1][j], dp[i][j - 1])) + 1;
+                cnt += dp[i][j];
             }
         }
-        return true;
+        return cnt;
     }
 };
