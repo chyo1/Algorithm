@@ -13,8 +13,8 @@ public:
             dp[i] = step + 1;
             i -= ++step;
         }
-        for (int i = 0; i <= n; i++)
-            printf("%d ", dp[i]);
+        // for (int i = 0; i <= n; i++)
+        //     printf("%d ", dp[i]);
         return step;
     }
 };
