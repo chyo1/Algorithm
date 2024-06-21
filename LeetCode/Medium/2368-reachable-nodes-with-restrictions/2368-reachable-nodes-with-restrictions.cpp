@@ -4,16 +4,20 @@ public:
         vector<int> lines[100000];
         bool visited[100000] = {false, };
 
-        // 간선 정보 저장
-        int size = edges.size();
-        for (int i = 0; i < size; i++) {
-            lines[edges[i][0]].push_back(edges[i][1]);
-            lines[edges[i][1]].push_back(edges[i][0]);
-        }
-
         // restricted 배열 정보 저장
         for (int i = 0; i < restricted.size(); i++)
             visited[restricted[i]] = true;
+
+        // 간선 정보 저장
+        int size = edges.size();
+        for (int i = 0; i < size; i++) {
+            int start = edges[i][0], end = edges[i][1];
+            if (visited[start] || visited[end])
+                continue ;
+            lines[start].push_back(end);
+            lines[end].push_back(start);
+        }
+
         return countReachableNodes(lines, visited, 0);
     }
 
