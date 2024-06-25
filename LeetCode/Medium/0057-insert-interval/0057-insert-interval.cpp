@@ -10,12 +10,14 @@ public:
 
         int start = newInterval[0], end = newInterval[1];
         while (i < size && intervals[i][0] <= newInterval[1]) {
-            start = min(start, intervals[i][0]);
-            end = max(end, intervals[i][1]);
+            newInterval = {min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])};
+            // start = min(start, intervals[i][0]);
+            // end = max(end, intervals[i][1]);
             i++;
         }
-        ans.push_back({start, end});
-        
+        // ans.push_back({start, end});
+        ans.push_back(newInterval);
+
         while (i < size)
             ans.push_back(intervals[i++]);
         
