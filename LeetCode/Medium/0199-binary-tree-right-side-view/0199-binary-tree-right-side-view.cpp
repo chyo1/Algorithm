@@ -13,6 +13,7 @@ class Solution {
 public:
     vector<int> ans;
     int rightSideVisited[101] = {false, };
+
     vector<int> rightSideView(TreeNode* root) {
         if (!root)
             return ans;
@@ -20,12 +21,10 @@ public:
         getRightSideView(root, 0, true);
         return ans;
     }
+
     void getRightSideView(TreeNode* now, int lev, bool isRight) {
-        if (isRight && !rightSideVisited[lev]) {
-            ans.push_back(now->val);
-            rightSideVisited[lev] = true;
-        }
-        else if (!rightSideVisited[lev]) {
+
+        if (!rightSideVisited[lev]) {
             ans.push_back(now->val);
             rightSideVisited[lev] = true;
         }
