@@ -14,9 +14,9 @@ public:
             else
                 oddSum += nums[i];
         }
-        for (int i = 0; i < size; i++)
-            printf("%d ", sum[i]);
-        printf("\nevenSum: %d, oddSum: %d\n", evenSum, oddSum);
+        // for (int i = 0; i < size; i++)
+        //     printf("%d ", sum[i]);
+        // printf("\nevenSum: %d, oddSum: %d\n", evenSum, oddSum);
 
         int odd, even;
         for (int i = 0; i < size; i++) {
