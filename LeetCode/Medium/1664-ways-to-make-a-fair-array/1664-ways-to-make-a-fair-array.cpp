@@ -6,6 +6,7 @@ public:
 
         if (size == 1)
             return 1;
+
         sum[0] = evenSum = nums[0], sum[1] = oddSum = nums[1];
         for (int i = 2; i < size; i++) {
             sum[i] = sum[i - 2] + nums[i];
@@ -17,10 +18,11 @@ public:
 
         int odd, even;
         for (int i = 0; i < size; i++) {
-
+            odd = even = 0;
             if (i == 0) {
                 if (evenSum - nums[i] == oddSum)
                     cnt++;
+                continue ;
             }
 
             // 홀수 합
@@ -41,8 +43,10 @@ public:
                 odd = sum[i - 1] + (evenSum - sum[i]);
             }
 
-            if (odd == even)
+            if (odd == even) {
                 cnt++;
+                printf("idx:%d\n", i);
+            }
         }
         return cnt;
     }
