@@ -15,8 +15,6 @@ public:
             int start = 0, end = n;
             while (start <= end) {
                 int mid = (start + end) / 2;
-
-                printf("s %d e %d m %d\n", start, end, mid);
                 if (matrix[i][mid] == target)
                     return true;
                 else if (matrix[i][mid] < target)
