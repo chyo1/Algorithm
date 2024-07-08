@@ -47,32 +47,36 @@ public:
     }
 
     bool checkPacific(vector<vector<int>>& heights, int r, int c) {
-        visited[r][c] = true;
         if (accessable[r][c].first)
             return true;
+        visited[r][c] = true;
         for (int i = 0; i < 4; i++) {
             int nr = r + mv[i][0], nc = c + mv[i][1];
             if (nr < 0 || nr >= row || nc < 0 || nc >= col || visited[nr][nc]) continue;
+
             if (heights[r][c] >= heights[nr][nc]) {
-                if (checkPacific(heights, nr, nc))
+                if (checkPacific(heights, nr, nc)) {
+                    accessable[r][c].first = true;
                     return true;
+                }
             }
         }
         return false;
     }
 
     bool checkAtlantic(vector<vector<int>>& heights, int r, int c) {
-        visited[r][c] = true;
         if (accessable[r][c].second)
             return true;
+        visited[r][c] = true;
         for (int i = 0; i < 4; i++) {
             int nr = r + mv[i][0], nc = c + mv[i][1];
             if (nr < 0 || nr >= row || nc < 0 || nc >= col || visited[nr][nc]) continue;
 
             if (heights[r][c] >= heights[nr][nc]) {
-                
-                if (checkAtlantic(heights, nr, nc))
+                if (checkAtlantic(heights, nr, nc)) {
+                    accessable[r][c].second = true;
                     return true;
+                }
             }
         }
         return false;
