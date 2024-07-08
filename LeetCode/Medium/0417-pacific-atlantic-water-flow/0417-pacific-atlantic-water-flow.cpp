@@ -56,7 +56,7 @@ public:
 
             if (heights[r][c] >= heights[nr][nc]) {
                 if (checkPacific(heights, nr, nc)) {
-                    accessable[r][c].first = true;
+                    accessable[nr][nc].first = true;
                     return true;
                 }
             }
@@ -74,7 +74,7 @@ public:
 
             if (heights[r][c] >= heights[nr][nc]) {
                 if (checkAtlantic(heights, nr, nc)) {
-                    accessable[r][c].second = true;
+                    accessable[nr][nc].second = true;
                     return true;
                 }
             }
