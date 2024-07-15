@@ -31,13 +31,17 @@ public:
             if (!newParent) {
                 newParent = new TreeNode(parentVal);
                 nodes.insert({parentVal, newParent});
-                if (childs.find(parentVal) == childs.end())
-                    root = newParent;
             }
             if (isLeft)
                 newParent->left = newChild;
             else
                 newParent->right = newChild;
+        }
+
+        for (auto iter = nodes.begin(); iter != nodes.end(); iter++) {
+            int val = iter->first;
+            if (childs.find(val) == childs.end())
+                return iter->second;
         }
         return root;
     }
@@ -45,9 +49,6 @@ public:
     TreeNode* findNode(const unordered_map<int, TreeNode*>& nodes, int val) {        
         auto iter = nodes.find(val);
 
-        if (iter == nodes.end())
-            return NULL;
-        
-        return iter->second;
+        return iter == nodes.end() ? NULL : iter->second;
     }
 };
