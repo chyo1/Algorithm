@@ -18,16 +18,15 @@ public:
         for (int i = 0; i < descriptions.size(); i++) {
             int parentVal = descriptions[i][0], childVal = descriptions[i][1], isLeft = descriptions[i][2];
 
-            TreeNode* newChild = findNode(nodes, childVal);
-            TreeNode* newParent = findNode(nodes, parentVal);
-
-            childs.insert(childVal);
-
             // 노드가 없다면 각각 생성
+            TreeNode* newChild = findNode(nodes, childVal);
             if (!newChild) {
                 newChild = new TreeNode(childVal);
                 nodes.insert({childVal, newChild});
+                childs.insert(childVal);
             }
+
+            TreeNode* newParent = findNode(nodes, parentVal);
             if (!newParent) {
                 newParent = new TreeNode(parentVal);
                 nodes.insert({parentVal, newParent});
