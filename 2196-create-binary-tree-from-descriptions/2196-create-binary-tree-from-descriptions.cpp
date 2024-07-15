@@ -12,7 +12,6 @@
 class Solution {
 public:
     TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
-        TreeNode* root = NULL;
         unordered_set<int> childs;
         unordered_map<int, TreeNode*> nodes;
 
@@ -24,6 +23,7 @@ public:
 
             childs.insert(childVal);
 
+            // 노드가 없다면 각각 생성
             if (!newChild) {
                 newChild = new TreeNode(childVal);
                 nodes.insert({childVal, newChild});
@@ -32,18 +32,21 @@ public:
                 newParent = new TreeNode(parentVal);
                 nodes.insert({parentVal, newParent});
             }
+
+            // 자식과 연결
             if (isLeft)
                 newParent->left = newChild;
             else
                 newParent->right = newChild;
         }
 
+        // root 찾기
         for (auto iter = nodes.begin(); iter != nodes.end(); iter++) {
             int val = iter->first;
             if (childs.find(val) == childs.end())
                 return iter->second;
         }
-        return root;
+        return NULL;
     }
 
     TreeNode* findNode(const unordered_map<int, TreeNode*>& nodes, int val) {        
