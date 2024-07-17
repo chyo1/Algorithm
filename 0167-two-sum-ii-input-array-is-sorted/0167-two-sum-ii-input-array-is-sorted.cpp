@@ -12,7 +12,6 @@ public:
             else
                 end--;
         }
-        ans[0] = start + 1, ans[1] = end + 1;
-        return ans;
+        return vector<int> {start + 1, end + 1};
     }
 };
