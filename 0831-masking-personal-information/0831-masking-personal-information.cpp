@@ -12,31 +12,28 @@ public:
     }
 
     string maskEmail(string &s) {
-        string ans;
-        ans += tolower(s[0]);
-        ans += "*****";
+        string ans = "0*****0";
+        ans[0] = tolower(s[0]);
 
         int idx = s.find('@');
-        s[idx - 1] = tolower(s[idx - 1]);
+        ans[6] = tolower(s[idx - 1]);
 
         for (int i = idx + 1; i < s.size(); i++)
             s[i] = tolower(s[i]);
-        ans += s.substr(idx - 1);
+        ans += s.substr(idx);
         return ans;
     }
 
     string maskPhone(string &s) {
-        int size = s.size(), cnt = 0;
-        string localNum = "0000";
-        string format[4] = {"***-***-", "+*-***-***-", "+**-***-***-", "+***-***-***-"};
-        int idx = 3;
+        int size = s.size(), cnt = 0, idx = 3;
+        string localNum = "0000", format[4] = {"***-***-", "+*-***-***-", "+**-***-***-", "+***-***-***-"};
+
         for (int i = size - 1; i >= 0; i--) {
             if (isdigit(s[i])) {
                 if (idx >= 0) localNum[idx--] = s[i];
                 cnt++;
             }
         }
-        string ans = format[cnt - 10] + localNum;
-        return ans;
+        return format[cnt - 10] + localNum;
     }
 };
