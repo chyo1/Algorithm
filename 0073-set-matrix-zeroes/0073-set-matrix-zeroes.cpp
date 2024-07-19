@@ -14,11 +14,12 @@ public:
             if (zeroRow[i]) {
                 for (int j = 0; j < n; j++)
                     matrix[i][j] = 0;
-                continue;
             }
-            
-            for (int j = 0; j < n; j++) {
-                if (zeroCol[j])
+        }
+
+        for (int j = 0; j < n; j++) {
+            if (zeroCol[j]) {
+                for (int i = 0; i < m; i++)
                     matrix[i][j] = 0;
             }
         }
