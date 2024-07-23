@@ -2,45 +2,36 @@ class Solution {
 public:
     int minimumRefill(vector<int>& plants, int capacityA, int capacityB) {
         int size = plants.size(), half = size / 2;
-        int cntA = 0, cntB = 0, capA = capacityA, capB = capacityB;
+        int cntA = 0, cntB = 0, capA = capacityA, capB = capacityB, idxA = 0, idxB = size - 1;
 
-        for (int i = 0; i < half; i++) {
-            if (capA >= plants[i])
-                capA -= plants[i];
+        while (idxB - idxA > 0) {
+            if (capA >= plants[idxA])
+                capA -= plants[idxA];
             else {
                 cntA++;
-                capA = capacityA - plants[i];
+                capA = capacityA - plants[idxA];
             }
+
+            if (capB >= plants[idxB])
+                capB -= plants[idxB];
+            else {
+                cntB++;
+                capB = capacityB - plants[idxB];
+            }
+            idxA++; idxB--;
         }
 
-        // if (size % 2) {
-            for (int i = size - 1; i >= half + 1; i--) {
-                if (capB >= plants[i])
-                    capB -= plants[i];
-                else {
-                    cntB++;
-                    capB = capacityB - plants[i];
-                }
-            }
-
-        if (size % 2) {
+        if (idxB == idxA) {
             if (capA < capB) {
-                if (capB < plants[half])
+                if (capB < plants[idxA])
                     cntB++;
             }
             else {
-                if (capA < plants[half])
+                if (capA < plants[idxA])
                     cntA++;
             }
         }
-        else {
-            if (capB >= plants[half])
-                capB -= plants[half];
-            else {
-                cntB++;
-                capB = capacityB - plants[half];
-            }
-        }
+
         return cntA + cntB;
     }
 };
