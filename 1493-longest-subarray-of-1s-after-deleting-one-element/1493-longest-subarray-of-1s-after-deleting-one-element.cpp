@@ -5,11 +5,11 @@ public:
         
         int size = nums.size();
         int one = 0, zero = 0;
-        bool zeroFlag = !nums[0], flag = false;
+        bool flag = !nums[0], zeroCnt = false;
         for (int i = 0; i < size; i++) {
             if (nums[i] == 1) {
-                if (zeroFlag) {
-                    zeroFlag = false;
+                if (flag) {
+                    flag = false;
                     if (zero > 1)
                         lens.push_back({-zero, 0});
                     zero = 0;
@@ -17,34 +17,28 @@ public:
                 one++;
             }
             else {
-                if (!zeroFlag) {
-                    zeroFlag = true;
+                if (!flag) {
+                    flag = true;
                     lens.push_back({one, 1});
                     one = 0;
                 }
                 zero++;
-                flag = true;
+                zeroCnt = true;
             }
         }
-        if (zeroFlag) {
-            if (zero > 1)
-                lens.push_back({-zero, 0});
-        }
-        else
+        if (flag && zero > 1) 
+            lens.push_back({-zero, 0});
+        if (!flag)
             lens.push_back({one, 1});
 
         int cnt = lens.size();
-        if (!flag)
+        if (!zeroCnt)
             return lens[0].first - 1;
         int bef = 0, maxLen = 0;
 
         for (int i = 0; i < cnt; i++) {
-            // printf("%d : %d\n", lens[i].second, lens[i].first);
-
             maxLen = max(maxLen, lens[i].first + bef);
-            bef = lens[i].first;
-            if (lens[i].second == 0)
-                bef = 0;
+            bef = lens[i].second ? lens[i].first : 0;
         }
         return maxLen;
     }
