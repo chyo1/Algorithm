@@ -9,15 +9,14 @@ public:
                 loc[mat[i][j]] = {i, j};
             }
         }
-
+        
         int row[100001] = {0, }, col[100001] = {0, };
         int size = arr.size();
         for (int i = 0; i < size; i++) {
             pair<int, int> cor = loc[arr[i]];
 
             row[cor.first]++, col[cor.second]++;
-
-            if (row[cor.first] == m || col[cor.second] == n)
+            if (row[cor.first] == n || col[cor.second] == m)
                 return i;
         }
         return size - 1;
