@@ -13,11 +13,14 @@ public:
         for (auto& [n2, n1] : nums) {
             sum += n1;
             pq.emplace(n1);
-            
-            if (pq.size() == k) {
-                ans = max(ans, sum * n2);
+
+            if (pq.size() > k) {
                 sum -= pq.top();
                 pq.pop();
+            }
+
+            if (pq.size() == k) {
+                ans = max(ans, sum * n2);
             }
         }
         return ans;
