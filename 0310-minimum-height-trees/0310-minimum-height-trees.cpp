@@ -4,7 +4,10 @@ public:
         if (n <= 1)
             return {0};
 
-        vector<int> graph[n], ans;
+        // graph를 list로 정의
+        list<int> graph[n];
+        vector<int> ans;
+
         for (auto edge : edges) {
             graph[edge[0]].push_back(edge[1]);
             graph[edge[1]].push_back(edge[0]);
@@ -20,8 +23,8 @@ public:
 
             vector<int> nextNodes;
             for (auto node : ans) {
-                int pairNode = graph[node][0];
-                graph[pairNode].erase(find(graph[pairNode].begin(), graph[pairNode].end(), node));
+                int pairNode = graph[node].front();  // 첫 번째 원소 가져옴
+                graph[pairNode].remove(node);  // 연결 리스트에서 값 삭제
                 if (graph[pairNode].size() == 1)
                     nextNodes.push_back(pairNode);
             }
