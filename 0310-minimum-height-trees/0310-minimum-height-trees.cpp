@@ -21,7 +21,7 @@ public:
             vector<int> nextNodes;
             for (auto node : ans) {
                 int pairNode = graph[node][0];
-                graph[pairNode].erase(remove(graph[pairNode].begin(), graph[pairNode].end(), node), graph[pairNode].end());
+                graph[pairNode].erase(find(graph[pairNode].begin(), graph[pairNode].end(), node));
                 if (graph[pairNode].size() == 1)
                     nextNodes.push_back(pairNode);
             }
