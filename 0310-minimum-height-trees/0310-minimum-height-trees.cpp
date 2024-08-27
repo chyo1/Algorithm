@@ -3,6 +3,7 @@ public:
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
         if (n <= 1)
             return {0};
+
         vector<int> graph[n], ans;
         for (auto edge : edges) {
             graph[edge[0]].push_back(edge[1]);
@@ -23,8 +24,6 @@ public:
                 graph[pairNode].erase(remove(graph[pairNode].begin(), graph[pairNode].end(), node),  graph[pairNode].end());
                 if (graph[pairNode].size() == 1)
                     nextNodes.push_back(pairNode);
-                
-                cout << graph[pairNode].size() << endl;
             }
             ans.clear();
             ans = nextNodes;
