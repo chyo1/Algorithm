@@ -1,33 +1,22 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        stack<char> st;
-        string ans;
+        reverse(s.begin(), s.end());
 
-        int idx = s.size() - 1;
-        int end = 0;
-        while (s[end] == ' ')
-            end++;
-
-        while (idx >= end) {
-            if (s[idx] == ' ') {
-                if (st.size()) {
-                    while (!st.empty()) {
-                        ans.append(1, st.top());
-                        st.pop();
-                    }
-                    ans.append(1, ' ');
-                }
-            }
-            else
-                st.push(s[idx]);
-
-            idx--;
+        int idx = 0, size = s.size();
+        int l = 0, r = 0;
+        while (idx < size) {
+            while (idx < size && s[idx] == ' ')
+                idx++;
+            if (idx == size)
+                break;
+            while (idx < size && s[idx] != ' ')
+                s[r++] = s[idx++];
+            reverse(s.begin() + l, s.begin() + r);
+            s[r++] = ' ';
+            l = r;
         }
-        while (!st.empty()) {
-            ans.append(1, st.top());
-            st.pop();
-        }
-        return ans;
+        s.resize(r - 1);
+        return s;
     }
 };
