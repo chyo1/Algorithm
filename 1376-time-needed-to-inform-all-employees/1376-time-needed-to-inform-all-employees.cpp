@@ -2,21 +2,23 @@ class Solution {
 public:
     vector<int> man[100000];
 
-    int dfs(int nowID, vector<int>& informTime) {
-        int maxInformTime = 0;
-        for (int subordinate : man[nowID]) {
-            maxInformTime = max(dfs(subordinate, informTime), maxInformTime);
+    int dfs(int nowID, vector<int>& manager, vector<int>& informTime) {
+        
+        if (manager[nowID] != -1) {
+            informTime[nowID] += dfs(manager[nowID], manager, informTime);
+            manager[nowID] = -1;
         }
-        return maxInformTime + informTime[nowID];
+        return informTime[nowID];
     }
 
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        int maxTime = 0;
         for (int i = 0; i < n; i++) {
             int superior = manager[i];
-            if (superior == -1) continue;
-            man[superior].push_back(i);
+            if (superior != -1)
+                maxTime = max(maxTime, dfs(superior, manager, informTime));
         }
         
-        return dfs(headID, informTime);
+        return maxTime;
     }
 };
