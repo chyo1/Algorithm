@@ -14,7 +14,7 @@ public:
         for (int i = 0; i < n; i++) {
             int superior = manager[i];
             if (superior == -1) continue;
-            man[manager[i]].push_back(i);
+            man[superior].push_back(i);
         }
         
         return dfs(headID, informTime);
