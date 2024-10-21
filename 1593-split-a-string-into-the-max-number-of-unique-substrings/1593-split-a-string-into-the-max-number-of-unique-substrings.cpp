@@ -1,12 +1,13 @@
 class Solution {
 public:
     int maxCnt = 0;
-    set<string> uniqueSubstring;
-    void makeMaximumSubstrings(set<string> uniqueSubstring, string s) {
+    unordered_set<string> uniqueSubstring;
+    void makeMaximumSubstrings(unordered_set<string> uniqueSubstring, string s) {
         if (s == "") {
             maxCnt = max(maxCnt, (int)uniqueSubstring.size());
             return;
         }
+
         int len = 1;
         while (len < s.size()) {
             string subStr = s.substr(0, len);
