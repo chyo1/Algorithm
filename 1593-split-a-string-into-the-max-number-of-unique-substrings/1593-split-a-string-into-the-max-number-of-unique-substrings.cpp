@@ -2,26 +2,25 @@ class Solution {
 public:
     int maxCnt = 0;
     unordered_set<string> uniqueSubstring;
-    void makeMaximumSubstrings(unordered_set<string> uniqueSubstring, string s) {
-        if (s == "") {
+
+    void makeMaximumSubstrings(int startIdx, unordered_set<string>& uniqueSubstring, string& s) {
+        if (startIdx == s.size()) {
             maxCnt = max(maxCnt, (int)uniqueSubstring.size());
             return;
         }
 
         int len = 1;
-        while (len < s.size()) {
-            string subStr = s.substr(0, len);
+        while (startIdx + len <= s.size()) {
+            string subStr = s.substr(startIdx, len);
             if (uniqueSubstring.insert(subStr).second) {
-                makeMaximumSubstrings(uniqueSubstring, s.substr(len));
+                makeMaximumSubstrings(startIdx + len, uniqueSubstring, s);
                 uniqueSubstring.erase(subStr);
             }
             len++;
         }
-        if (uniqueSubstring.insert(s).second)
-            makeMaximumSubstrings(uniqueSubstring, "");
     }
     int maxUniqueSplit(string s) {
-        makeMaximumSubstrings(uniqueSubstring, s);
+        makeMaximumSubstrings(0, uniqueSubstring, s);
         return maxCnt;
     }
 };
