@@ -1,17 +1,19 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 
 public class Main {
     static int MAX_VALUE = 1_000_000_000;
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // input
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
 
         int[][] path = new int[n][n];
         for (int i = 0; i < n; i++) {
@@ -20,14 +22,16 @@ public class Main {
         }
 
         for (int i = 0; i < m; i++) {
-            int start = sc.nextInt() - 1;
-            int end = sc.nextInt() - 1;
-            int cost = sc.nextInt();
+            String[] tokens = br.readLine().split(" ");
+            int start = Integer.parseInt(tokens[0]) - 1;
+            int end = Integer.parseInt(tokens[1]) - 1;
+            int cost = Integer.parseInt(tokens[2]);
             path[start][end] = Math.min(cost, path[start][end]);
         }
 
-        int start = sc.nextInt() - 1;
-        int end = sc.nextInt() - 1;
+        String[] tokens = br.readLine().split(" ");
+        int start = Integer.parseInt(tokens[0]) - 1;
+        int end = Integer.parseInt(tokens[1]) - 1;
 
         int[] before = new int[n];
         int[] distance = new int[n];
