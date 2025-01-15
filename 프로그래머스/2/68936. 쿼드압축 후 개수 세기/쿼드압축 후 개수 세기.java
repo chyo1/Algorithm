@@ -21,7 +21,7 @@ class Solution {
                 }
             }
         }
+        
         answer[value]++;
-        return;
     }
 }
