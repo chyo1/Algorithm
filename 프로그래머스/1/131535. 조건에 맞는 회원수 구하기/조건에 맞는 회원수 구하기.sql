@@ -1,4 +1,4 @@
 -- 코드를 입력하세요
-SELECT COUNT (*) USERS
-FROM USER_INFO
-WHERE YEAR(JOINED) = '2021' AND AGE BETWEEN 20 AND 29
+SELECT count(*) as USERS
+from user_info
+where age between 20 and 29 and year(joined) = 2021
