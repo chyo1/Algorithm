@@ -1,0 +1,5 @@
+-- 코드를 작성해주세요
+select B.ITEM_ID, C.ITEM_NAME, C.RARITY
+from ITEM_INFO A JOIN ITEM_TREE B ON A.ITEM_ID = B.PARENT_ITEM_ID JOIN ITEM_INFO C ON B.ITEM_ID = C.ITEM_ID
+where A.RARITY = 'RARE'
+order by B.item_id desc
